@@ -1,5 +1,7 @@
 import { Component } from '@angular/core';
-import { IonicPage, NavController, NavParams } from 'ionic-angular';
+import { IonicPage, NavController, NavParams, ToastController } from 'ionic-angular';
+import { AngularFireAuth } from 'angularfire2/auth';
+import { StorageService } from '../../services/storage.service';
 
 /**
  * Generated class for the CategoriasPage page.
@@ -15,11 +17,34 @@ import { IonicPage, NavController, NavParams } from 'ionic-angular';
 })
 export class CategoriasPage {
 
-  constructor(public navCtrl: NavController, public navParams: NavParams) {
+  user : string;
+  
+
+  constructor(public navCtrl: NavController, 
+    public navParams: NavParams,
+    public firebaseauth: AngularFireAuth,
+    public toastCtrl: ToastController,
+    public storageService : StorageService) {
+
+      this.user = storageService.getLocalUser();
+      
   }
 
-  ionViewDidLoad() {
-    console.log('ionViewDidLoad CategoriasPage');
+  public Sair(): void {
+    this.firebaseauth.auth.signOut()
+    .then(() => {
+    
+      this.storageService.setNullLocalUser();
+      this.exibirToast("Você saiu");
+    })
+    .catch((erro: any) => {
+      this.exibirToast(erro);
+    });
   }
 
+  private exibirToast(mensagem: string): void {
+    let toast = this.toastCtrl.create({duration: 4000, position: 'botton'});
+    toast.setMessage(mensagem);
+    toast.present();
+  }
 }

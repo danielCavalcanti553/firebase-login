@@ -1,23 +1,26 @@
 <ion-header>
-
+  <ion-navbar >
+    <ion-title>
+      LOGIN
+    </ion-title>
+  </ion-navbar>
 </ion-header>
 
 <ion-content padding>
-  <h3>LOGIN</h3>
-
-  <ion-list>
+ 
+    <h3>Login / Cadastro</h3>
+    
     <ion-item>
-      <ion-label stacked>Username</ion-label>
-      <ion-input type="text"></ion-input>
+      <ion-label floating>Usuário</ion-label>
+      <ion-input type="text" #usuario></ion-input>
     </ion-item>
+  
     <ion-item>
-
-      <ion-label stacked>Password</ion-label>
-      <ion-input type="password"></ion-input>
+      <ion-label floating>Senha </ion-label>
+      <ion-input type="password" #senha></ion-input>
     </ion-item>
-  </ion-list>
 
-  <button ion-button block (click)="login()">ENTRAR</button>
-  <button ion-button block outline>REGISTRAR</button>
-
+    <button ion-button block (click)="login()">Login</button>
+    <button ion-button block outline (click)="cadastrarUsuario()">Cadastrar</button>
+  
 </ion-content>
